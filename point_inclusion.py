@@ -118,8 +118,8 @@ def random_offset_list(polygon, hole1, hole2):
     offset_y = random.randint(10000,base_y*10000)/10000
     #offset_x = random.randint(1, 200)
     #offset_y = random.randint(1, 200)
-    print(offset_x)
-    print(offset_y)
+    #print(offset_x)
+    #print(offset_y)
 
     polygon_copy = polygon
     hole1_copy = hole1
@@ -202,7 +202,7 @@ def point_gen(point_count):
     if args.algorithm == 'naive':
         for poic in rand_list:
             for points in POLYGON_LIST:
-                naive_inclusion2(points, poic[0], poic[1], False, points.index)
+                naive_inclusion2(points, poic[0], poic[1], False, -1)
         end = time.time()
     elif args.algorithm == 'bbox':
         for poic in rand_list:
@@ -214,7 +214,7 @@ def point_gen(point_count):
             closest_slab = find_closest_slab(poic[1])
             #print(closest_slab)
             for polygon in SLABS_META[closest_slab]:
-                naive_inclusion2(POLYGON_LIST[polygon], float(x), float(y), False)
+                naive_inclusion2(POLYGON_LIST[polygon], float(x), float(y), False, -1)
         end = time.time()
     completion = end-start
     print('All done. Completion time: ' + str(completion))
@@ -422,7 +422,7 @@ def create_convex_polygons():
         holes_test = [hole1, hole2]
         v = tesselate(polygon, holes_test)
         #v = tesselate(poly_offsets, holes=holes)
-        print(v)
+        #print(v)
         POLYGON_LIST.append(v)
 
 def create_concave_polygons(WIDTH, HEIGHT, args):
@@ -536,7 +536,6 @@ def fill_RGB_list():
 WIDTH = 1280
 HEIGHT = 720
 POLYGON_LIST = []
-POLYGON_LIST_NP = []
 BOUNDING_BOXES =[]
 BBOX_META = []
 SLABS = []
